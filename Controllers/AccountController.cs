@@ -39,7 +39,7 @@ namespace InventoryManagementaAPI.Controllers
 				throw;
 			}
 			if (result == null)
-				return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, token = "" });
+				return StatusCode(StatusCodes.Status200OK, new { isAuthenticated = false, token = "" });
 			else
 			{
 				LoginViewModel loginResult = new()
@@ -49,7 +49,7 @@ namespace InventoryManagementaAPI.Controllers
 					Password = result.PasswordHash
 				};
 
-				return StatusCode(StatusCodes.Status200OK, new { isSuccess = true, token = utilities.GenerateToken(loginResult) });
+				return StatusCode(StatusCodes.Status200OK, new { isAuthenticated = true, token = utilities.GenerateToken(loginResult) });
 			}
 		}
 
