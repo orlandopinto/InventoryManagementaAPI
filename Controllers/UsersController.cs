@@ -1,10 +1,12 @@
 ﻿using InventoryManagementaAPI.Models;
 using InventoryManagementaAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementaAPI.Controllers
 {
 	[Route(@"[controller]/api")]
+	[Authorize]
 	[ApiController]
 	public class UsersController : ControllerBase
 	{
@@ -18,7 +20,7 @@ namespace InventoryManagementaAPI.Controllers
 		}
 
 		[HttpGet]
-		public async Task<List<Users>> GetAll()
+		public async Task<IActionResult> GetAll()
 		{
 			List<Users> result;
 			try
@@ -27,14 +29,13 @@ namespace InventoryManagementaAPI.Controllers
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
-			return await Task.FromResult(result);
+			return StatusCode(StatusCodes.Status200OK, new { result = result });
 		}
 
 		[HttpGet(@"{Id:guid}")]
-		public async Task<Users> Get(Guid Id)
+		public async Task<IActionResult> Get(Guid Id)
 		{
 			Users result;
 			try
@@ -43,14 +44,13 @@ namespace InventoryManagementaAPI.Controllers
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
-			return await Task.FromResult(result);
+			return StatusCode(StatusCodes.Status200OK, new { result = result });
 		}
 
 		[HttpPost]
-		public async Task<bool> Post(Users user)
+		public async Task<IActionResult> Post(Users user)
 		{
 			bool result;
 			try
@@ -59,14 +59,13 @@ namespace InventoryManagementaAPI.Controllers
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
-			return await Task.FromResult(result);
+			return StatusCode(StatusCodes.Status200OK, new { result = result });
 		}
 
 		[HttpPut]
-		public async Task<bool> Put(Users user)
+		public async Task<IActionResult> Put(Users user)
 		{
 			bool result;
 			try
@@ -75,14 +74,13 @@ namespace InventoryManagementaAPI.Controllers
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
-			return await Task.FromResult(result);
+			return StatusCode(StatusCodes.Status200OK, new { result = result });
 		}
 
 		[HttpDelete(@"{Id}")]
-		public async Task<bool> Delete(Guid Id)
+		public async Task<IActionResult> Delete(Guid Id)
 		{
 			bool result;
 			try
@@ -91,10 +89,9 @@ namespace InventoryManagementaAPI.Controllers
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
-			return await Task.FromResult(result);
+			return StatusCode(StatusCodes.Status200OK, new { result = result });
 		}
 	}
 }

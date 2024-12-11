@@ -11,7 +11,8 @@ Web API para controlar de la aplicación administrativa para manejar inventario
 
 ## Faetures
 
-- Base de datos creada en SQL Server 2019
 - .NET 8
+- SQL Server 2019
+- Microsoft.AspNetCore.Authentication.JwtBearer 8.0.11
 
 

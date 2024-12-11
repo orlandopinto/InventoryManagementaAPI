@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InventoryManagementaAPI.Custom;
 using InventoryManagementaAPI.Models;
 using InventoryManagementaAPI.Repositories;
 using InventoryManagementaAPI.ViewModels;
@@ -14,17 +15,18 @@ namespace InventoryManagementaAPI.Controllers
 	{
 		private readonly ILogger<AccountController> _logger;
 		private AccountRepository repository;
+		Utilities utilities;
 
-		public AccountController(ILogger<AccountController> logger, UsersContext context, IMapper mapper)
+		public AccountController(ILogger<AccountController> logger, UsersContext context, IMapper mapper, IConfiguration configuration)
 		{
 			_logger = logger;
-
 			repository = new AccountRepository(context, mapper);
+			utilities = new(configuration);
 		}
 
 		[HttpPost]
 		[Route(@"Login")]
-		public async Task<Users> Login([FromBody] LoginViewModel loginViewModel)
+		public async Task<IActionResult> Login([FromBody] LoginViewModel loginViewModel)
 		{
 			Users result;
 			try
@@ -36,12 +38,24 @@ namespace InventoryManagementaAPI.Controllers
 
 				throw;
 			}
-			return await Task.FromResult(result);
+			if (result == null)
+				return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, token = "" });
+			else
+			{
+				LoginViewModel loginResult = new()
+				{
+					Id = result.Id!,
+					Email = result.Email!,
+					Password = result.PasswordHash
+				};
+
+				return StatusCode(StatusCodes.Status200OK, new { isSuccess = true, token = utilities.GenerateToken(loginResult) });
+			}
 		}
 
 		[HttpPost]
 		[Route(@"Register")]
-		public async Task<bool> Register([FromBody] RegisterViewModel registerViewModel)
+		public async Task<IActionResult> Register([FromBody] RegisterViewModel registerViewModel)
 		{
 			bool result;
 			try
@@ -53,7 +67,7 @@ namespace InventoryManagementaAPI.Controllers
 
 				throw;
 			}
-			return await Task.FromResult(result);
+			return StatusCode(StatusCodes.Status200OK, new { isSuccess = result, result = result });
 		}
 	}
 }
