@@ -5,6 +5,7 @@ using InventoryManagementaAPI.Repositories;
 using InventoryManagementaAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Metrics;
 
 namespace InventoryManagementaAPI.Controllers
 {
@@ -49,7 +50,7 @@ namespace InventoryManagementaAPI.Controllers
 					Password = result.PasswordHash
 				};
 
-				return StatusCode(StatusCodes.Status200OK, new { isAuthenticated = true, token = utilities.GenerateToken(loginResult) });
+				return StatusCode(StatusCodes.Status200OK, new { isAuthenticated = true, FullName = $"{result.FirstName} {result.LastName}.", UserName = result.UserName, isAdmin = result.IsAdmin, token = utilities.GenerateToken(loginResult) });
 			}
 		}
 
