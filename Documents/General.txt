@@ -1,0 +1,5 @@
+﻿
+
+Scaffold-DbContext "Server=.\SQLEXPRESS;Database=InventoryManagement;Trusted_Connection=True;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context "InventoryContext"
+
+Scaffold-DbContext "Server=.\SQLEXPRESS;Database=InventoryManagement;Trusted_Connection=True;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context "InventoryContext" -Tables dbo.SubCategories -f

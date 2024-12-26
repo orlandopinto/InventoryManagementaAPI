@@ -8,10 +8,10 @@ namespace InventoryManagementaAPI.Repositories
 {
 	public class AccountRepository : IAccountRepository
 	{
-		protected readonly UsersContext _context;
+		protected readonly InventoryContext _context;
 		private readonly IMapper _mapper;
 
-		public AccountRepository(UsersContext context, IMapper mapper)
+		public AccountRepository(InventoryContext context, IMapper mapper)
 		{
 			_context = context;
 			_mapper = mapper;
@@ -33,6 +33,22 @@ namespace InventoryManagementaAPI.Repositories
 			return await Task.FromResult(User);
 		}
 
+		public async Task<bool> AccountExists(AccountExistsViewModel accountExistsViewModel)
+		{
+			bool result;
+			try
+			{
+				List<Users> users = await _context.Users.ToListAsync();
+				var response = users.Where(w => w.Email == accountExistsViewModel.Account).Count();
+				result = response == 1;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			return result;
+		}
+
 		public async Task<bool> Register(RegisterViewModel registerViewModel)
 		{
 			bool result;
@@ -40,7 +56,7 @@ namespace InventoryManagementaAPI.Repositories
 			{
 				Users User = new()
 				{
-					Id = Guid.NewGuid().ToString(),
+					Id = Guid.NewGuid(),
 					Email = registerViewModel.Email,
 					UserName = registerViewModel.Email,
 					NormalizedEmail = registerViewModel.Email,

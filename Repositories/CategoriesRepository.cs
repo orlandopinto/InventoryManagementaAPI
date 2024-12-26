@@ -4,34 +4,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagementaAPI.Repositories
 {
-	public class UsersRepository : IUsersRepository
+	public class CategoriesRepository : ICategoriesRepository
 	{
 		protected readonly InventoryContext _context;
 
-		public UsersRepository(InventoryContext context)
+		public CategoriesRepository(InventoryContext context)
 		{
 			_context = context;
 		}
-		public async Task<List<Users>> GetAll()
+		public async Task<List<Categories>> GetAll()
 		{
-			List<Users> result;
+			List<Categories> result;
 			try
 			{
-				result = await _context.Users.ToListAsync();
+				result = await _context.Categories.ToListAsync();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
 			return await Task.FromResult(result);
 		}
 
-		public async Task<Users> Get(Guid ID)
+		public async Task<Categories> Get(Guid ID)
 		{
-			Users? result;
+			Categories? result;
 			try
 			{
-				result = await _context.Users.FindAsync(ID.ToString());
+				result = await _context.Categories.FindAsync(ID.ToString());
 			}
 			catch (Exception)
 			{
@@ -41,13 +41,13 @@ namespace InventoryManagementaAPI.Repositories
 		}
 
 
-		public async Task<bool> Post(Users user)
+		public async Task<bool> Post(Categories user)
 		{
 			bool result;
 			try
 			{
 				//user.Id = Guid.NewGuid();
-				_context.Users.Add(user);
+				_context.Categories.Add(user);
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
 			}
@@ -58,7 +58,7 @@ namespace InventoryManagementaAPI.Repositories
 			return result;
 		}
 
-		public async Task<bool> Put(Users user)
+		public async Task<bool> Put(Categories user)
 		{
 			bool result;
 			try
@@ -79,8 +79,8 @@ namespace InventoryManagementaAPI.Repositories
 			bool result;
 			try
 			{
-				var user = await _context.Users.FindAsync(ID.ToString());
-				_context.Users.Remove(user);
+				var user = await _context.Categories.FindAsync(ID.ToString());
+				_context.Categories.Remove(user);
 				var response = await _context.SaveChangesAsync();
 				result = response == 1;
 			}

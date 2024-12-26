@@ -4,34 +4,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagementaAPI.Repositories
 {
-	public class UsersRepository : IUsersRepository
+	public class SubCategoriesRepository : ISubCategoriesRepository
 	{
 		protected readonly InventoryContext _context;
 
-		public UsersRepository(InventoryContext context)
+		public SubCategoriesRepository(InventoryContext context)
 		{
 			_context = context;
 		}
-		public async Task<List<Users>> GetAll()
+		public async Task<List<SubCategories>> GetAll()
 		{
-			List<Users> result;
+			List<SubCategories> result;
 			try
 			{
-				result = await _context.Users.ToListAsync();
+				result = await _context.SubCategories.ToListAsync();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
 			return await Task.FromResult(result);
 		}
 
-		public async Task<Users> Get(Guid ID)
+		public async Task<SubCategories> Get(Guid ID)
 		{
-			Users? result;
+			SubCategories? result;
 			try
 			{
-				result = await _context.Users.FindAsync(ID.ToString());
+				result = await _context.SubCategories.FindAsync(ID.ToString());
 			}
 			catch (Exception)
 			{
@@ -41,13 +41,13 @@ namespace InventoryManagementaAPI.Repositories
 		}
 
 
-		public async Task<bool> Post(Users user)
+		public async Task<bool> Post(SubCategories subCategories)
 		{
 			bool result;
 			try
 			{
 				//user.Id = Guid.NewGuid();
-				_context.Users.Add(user);
+				_context.SubCategories.Add(subCategories);
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
 			}
@@ -58,12 +58,12 @@ namespace InventoryManagementaAPI.Repositories
 			return result;
 		}
 
-		public async Task<bool> Put(Users user)
+		public async Task<bool> Put(SubCategories subCategories)
 		{
 			bool result;
 			try
 			{
-				_context.Entry(user).State = EntityState.Modified;
+				_context.Entry(subCategories).State = EntityState.Modified;
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
 			}
@@ -79,8 +79,8 @@ namespace InventoryManagementaAPI.Repositories
 			bool result;
 			try
 			{
-				var user = await _context.Users.FindAsync(ID.ToString());
-				_context.Users.Remove(user);
+				var subCategories = await _context.SubCategories.FindAsync(ID.ToString());
+				_context.SubCategories.Remove(subCategories);
 				var response = await _context.SaveChangesAsync();
 				result = response == 1;
 			}
@@ -90,5 +90,6 @@ namespace InventoryManagementaAPI.Repositories
 			}
 			return result;
 		}
+
 	}
 }

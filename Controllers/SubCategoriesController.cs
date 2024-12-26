@@ -7,37 +7,36 @@ namespace InventoryManagementaAPI.Controllers
 	[Route(@"[controller]/api")]
 	//[Authorize]
 	[ApiController]
-	public class UsersController : ControllerBase
+	public class SubCategoriesController : Controller
 	{
-		private readonly ILogger<UsersController> _logger;
-		private UsersRepository repository;
+		private readonly ILogger<SubCategoriesController> _logger;
+		private SubCategoriesRepository repository;
 
-		public UsersController(ILogger<UsersController> logger, InventoryContext context)
+		public SubCategoriesController(ILogger<SubCategoriesController> logger, InventoryContext context)
 		{
 			_logger = logger;
-			repository = new UsersRepository(context);
+			repository = new SubCategoriesRepository(context);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> GetAll()
 		{
-			List<Users> result;
+			List<SubCategories> result;
 			try
 			{
 				result = await repository.GetAll();
 				return Ok(result);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return BadRequest();
-
 			}
 		}
 
 		[HttpGet(@"{Id:guid}")]
 		public async Task<IActionResult> Get(Guid Id)
 		{
-			Users result;
+			SubCategories result;
 			try
 			{
 				result = await repository.Get(Id);
@@ -50,28 +49,27 @@ namespace InventoryManagementaAPI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post(Users user)
+		public async Task<IActionResult> Post(SubCategories subCategories)
 		{
 			bool result;
 			try
 			{
-				result = await repository.Post(user);
+				result = await repository.Post(subCategories);
 				return Ok(result);
 			}
 			catch (Exception)
 			{
 				return BadRequest();
-
 			}
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> Put(Users user)
+		public async Task<IActionResult> Put(SubCategories subCategories)
 		{
 			bool result;
 			try
 			{
-				result = await repository.Put(user);
+				result = await repository.Put(subCategories);
 				return Ok(result);
 			}
 			catch (Exception)
@@ -94,5 +92,6 @@ namespace InventoryManagementaAPI.Controllers
 				return BadRequest();
 			}
 		}
+
 	}
 }

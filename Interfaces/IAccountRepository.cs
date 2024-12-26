@@ -6,6 +6,7 @@ namespace InventoryManagementaAPI.Interfaces
 	public interface IAccountRepository
 	{
 		public Task<Users> Login(LoginViewModel loginViewModel);
+		public Task<bool> AccountExists(AccountExistsViewModel Account);
 		public Task<bool> Register(RegisterViewModel registerViewModel);
 	}
 }
