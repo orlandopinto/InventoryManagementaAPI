@@ -27,14 +27,14 @@ namespace InventoryManagementaAPI.Controllers
 				result = await repository.GetAll();
 				return Ok(result);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return BadRequest();
 
 			}
 		}
 
-		[HttpGet(@"{Id:guid}")]
+		[HttpGet(@"{Id}")]
 		public async Task<IActionResult> Get(Guid Id)
 		{
 			Users result;

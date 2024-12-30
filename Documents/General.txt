@@ -1,5 +1,9 @@
 ﻿
 
-Scaffold-DbContext "Server=.\SQLEXPRESS;Database=InventoryManagement;Trusted_Connection=True;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context "InventoryContext"
+1. Abrir la solucion ==> D:\Aplicaciones\Solution\Solution.csproj
+2. Ejecutar el siguiente comando 
 
+Scaffold-DbContext "Server=.\SQLEXPRESS;Database=InventoryManagement;Trusted_Connection=True;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context "InventoryContext" -f
+
+NOTA: cuando no existen tablas en el contexto se puede ejecutar la siguiente linea para una tabla en especifico
 Scaffold-DbContext "Server=.\SQLEXPRESS;Database=InventoryManagement;Trusted_Connection=True;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context "InventoryContext" -Tables dbo.SubCategories -f

@@ -14,40 +14,39 @@ namespace InventoryManagementaAPI.Repositories
 		}
 		public async Task<List<SubCategories>> GetAll()
 		{
-			List<SubCategories> result;
+			List<SubCategories> subCategories;
 			try
 			{
-				result = await _context.SubCategories.ToListAsync();
+				subCategories = await _context.SubCategories.ToListAsync();
 			}
 			catch (Exception)
 			{
 				throw;
 			}
-			return await Task.FromResult(result);
+			return await Task.FromResult(subCategories);
 		}
 
 		public async Task<SubCategories> Get(Guid ID)
 		{
-			SubCategories? result;
+			SubCategories? subCategory;
 			try
 			{
-				result = await _context.SubCategories.FindAsync(ID.ToString());
+				subCategory = await _context.SubCategories.FindAsync(ID);
 			}
 			catch (Exception)
 			{
 				throw;
 			}
-			return await Task.FromResult(result);
+			return await Task.FromResult(subCategory!);
 		}
 
 
-		public async Task<bool> Post(SubCategories subCategories)
+		public async Task<bool> Post(SubCategories subCategory)
 		{
 			bool result;
 			try
 			{
-				//user.Id = Guid.NewGuid();
-				_context.SubCategories.Add(subCategories);
+				_context.SubCategories.Add(subCategory);
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
 			}
@@ -58,12 +57,12 @@ namespace InventoryManagementaAPI.Repositories
 			return result;
 		}
 
-		public async Task<bool> Put(SubCategories subCategories)
+		public async Task<bool> Put(SubCategories subCategory)
 		{
 			bool result;
 			try
 			{
-				_context.Entry(subCategories).State = EntityState.Modified;
+				_context.Entry(subCategory).State = EntityState.Modified;
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
 			}
@@ -79,8 +78,8 @@ namespace InventoryManagementaAPI.Repositories
 			bool result;
 			try
 			{
-				var subCategories = await _context.SubCategories.FindAsync(ID.ToString());
-				_context.SubCategories.Remove(subCategories);
+				var subCategory = await _context.SubCategories.FindAsync(ID);
+				_context.SubCategories.Remove(subCategory!);
 				var response = await _context.SaveChangesAsync();
 				result = response == 1;
 			}

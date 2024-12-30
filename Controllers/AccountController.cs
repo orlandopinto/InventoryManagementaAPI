@@ -16,7 +16,6 @@ namespace InventoryManagementaAPI.Controllers
 		private readonly ILogger<AccountController> _logger;
 		private AccountRepository repository;
 		Utilities utilities;
-		IConfiguration _configuration;
 
 		public AccountController(ILogger<AccountController> logger, InventoryContext context, IMapper mapper, IConfiguration configuration)
 		{
@@ -58,7 +57,7 @@ namespace InventoryManagementaAPI.Controllers
 					RefreshToken = refreshToken
 				};
 
-				return StatusCode(StatusCodes.Status200OK, new { isAuthenticated = true, FullName = $"{result.FirstName} {result.LastName}.", UserName = result.UserName, isAdmin = result.IsAdmin, tokenResult = tokenResult });
+				return StatusCode(StatusCodes.Status200OK, new { isAuthenticated = true, FullName = $"{result.FirstName} {result.LastName}", UserName = result.UserName, isAdmin = result.IsAdmin, tokenResult = tokenResult });
 			}
 		}
 

@@ -33,7 +33,7 @@ namespace InventoryManagementaAPI.Controllers
 			}
 		}
 
-		[HttpGet(@"{Id:guid}")]
+		[HttpGet(@"{Id}")]
 		public async Task<IActionResult> Get(Guid Id)
 		{
 			Categories result;

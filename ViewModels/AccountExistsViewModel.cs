@@ -2,6 +2,6 @@
 {
 	public class AccountExistsViewModel
 	{
-		public string Account { get; set; }
+		public required string Account { get; set; }
 	}
 }

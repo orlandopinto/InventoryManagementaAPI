@@ -14,30 +14,30 @@ namespace InventoryManagementaAPI.Repositories
 		}
 		public async Task<List<Users>> GetAll()
 		{
-			List<Users> result;
+			List<Users> users;
 			try
 			{
-				result = await _context.Users.ToListAsync();
-			}
-			catch (Exception ex)
-			{
-				throw;
-			}
-			return await Task.FromResult(result);
-		}
-
-		public async Task<Users> Get(Guid ID)
-		{
-			Users? result;
-			try
-			{
-				result = await _context.Users.FindAsync(ID.ToString());
+				users = await _context.Users.ToListAsync();
 			}
 			catch (Exception)
 			{
 				throw;
 			}
-			return await Task.FromResult(result);
+			return await Task.FromResult(users);
+		}
+
+		public async Task<Users> Get(Guid ID)
+		{
+			Users? user;
+			try
+			{
+				user = await _context.Users.FindAsync(ID);
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			return await Task.FromResult(user!);
 		}
 
 
@@ -46,7 +46,6 @@ namespace InventoryManagementaAPI.Repositories
 			bool result;
 			try
 			{
-				//user.Id = Guid.NewGuid();
 				_context.Users.Add(user);
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
@@ -79,8 +78,8 @@ namespace InventoryManagementaAPI.Repositories
 			bool result;
 			try
 			{
-				var user = await _context.Users.FindAsync(ID.ToString());
-				_context.Users.Remove(user);
+				var user = await _context.Users.FindAsync(ID);
+				_context.Users.Remove(user!);
 				var response = await _context.SaveChangesAsync();
 				result = response == 1;
 			}

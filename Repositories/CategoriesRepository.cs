@@ -31,23 +31,22 @@ namespace InventoryManagementaAPI.Repositories
 			Categories? result;
 			try
 			{
-				result = await _context.Categories.FindAsync(ID.ToString());
+				result = await _context.Categories.FindAsync(ID);
 			}
 			catch (Exception)
 			{
 				throw;
 			}
-			return await Task.FromResult(result);
+			return await Task.FromResult(result!);
 		}
 
 
-		public async Task<bool> Post(Categories user)
+		public async Task<bool> Post(Categories category)
 		{
 			bool result;
 			try
 			{
-				//user.Id = Guid.NewGuid();
-				_context.Categories.Add(user);
+				_context.Categories.Add(category);
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
 			}
@@ -58,12 +57,12 @@ namespace InventoryManagementaAPI.Repositories
 			return result;
 		}
 
-		public async Task<bool> Put(Categories user)
+		public async Task<bool> Put(Categories category)
 		{
 			bool result;
 			try
 			{
-				_context.Entry(user).State = EntityState.Modified;
+				_context.Entry(category).State = EntityState.Modified;
 				int response = await (_context.SaveChangesAsync());
 				result = response == 1;
 			}
@@ -79,8 +78,8 @@ namespace InventoryManagementaAPI.Repositories
 			bool result;
 			try
 			{
-				var user = await _context.Categories.FindAsync(ID.ToString());
-				_context.Categories.Remove(user);
+				var category = await _context.Categories.FindAsync(ID);
+				_context.Categories.Remove(category!);
 				var response = await _context.SaveChangesAsync();
 				result = response == 1;
 			}
