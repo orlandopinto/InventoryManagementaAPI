@@ -1,6 +1,5 @@
 ﻿using InventoryManagementaAPI.Interfaces;
 using InventoryManagementaAPI.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagementaAPI.Repositories

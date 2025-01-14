@@ -1,7 +1,7 @@
 
 # Inventory Managment
 
-Web API para controlar de la aplicación administrativa para manejar inventario
+Web API para controlar la aplicación administrativa de inventario
 
 
 ## Authors
