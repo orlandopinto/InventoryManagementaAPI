@@ -26,6 +26,20 @@ namespace InventoryManagementaAPI.Repositories
 			return await Task.FromResult(result);
 		}
 
+		public async Task<List<MultimediaFilesProduct>> GetMultimediaFilesByProductId(Guid ProductId)
+		{
+			List<MultimediaFilesProduct>? result;
+			try
+			{
+				result = await _context.MultimediaFilesProduct.Where(w => w.ProductId == ProductId).ToListAsync();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			return await Task.FromResult(result!);
+		}
+
 		public async Task<MultimediaFilesProduct> Get(Guid ID)
 		{
 			MultimediaFilesProduct? result;

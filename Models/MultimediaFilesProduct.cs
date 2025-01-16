@@ -9,4 +9,9 @@ public partial class MultimediaFilesProduct
 	public string Type { get; set; }
 	public string PublicId { get; set; }
 	public string SecureUrl { get; set; }
+
+	public static implicit operator MultimediaFilesProduct(List<MultimediaFilesProduct> v)
+	{
+		throw new NotImplementedException();
+	}
 }

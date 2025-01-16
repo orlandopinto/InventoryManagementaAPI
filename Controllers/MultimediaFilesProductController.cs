@@ -48,6 +48,23 @@ namespace InventoryManagementaAPI.Controllers
 			}
 		}
 
+		[HttpGet]
+		[Route("/MultimediaFilesProduct/MultimediaFilesByProduct/api/{ProductId:Guid}")]
+
+		public async Task<IActionResult> GetMultimediaFilesByProductId(Guid ProductId)
+		{
+			List<MultimediaFilesProduct> result;
+			try
+			{
+				result = await repository.GetMultimediaFilesByProductId(ProductId);
+				return Ok(result);
+			}
+			catch (Exception)
+			{
+				return BadRequest();
+			}
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> Post(MultimediaFilesProduct imageProduct)
 		{
